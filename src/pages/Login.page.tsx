@@ -1,8 +1,11 @@
-import React from 'react';
-import { Button } from '@mantine/core';
+import AuthBaseForm from '@/components/Forms/AuthBaseForm';
 
 const LoginPage = () => {
-  return <Button variant="outline">Login Page</Button>;
+  const handleSubmit = (values: { email: string; password: string }) => {
+    console.log('Login:', values.email, values.password);
+  };
+
+  return <AuthBaseForm type="login" onSubmit={handleSubmit} showUsername={false} />;
 };
 
 export default LoginPage;
