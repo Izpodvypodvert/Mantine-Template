@@ -1,35 +1,41 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
 interface User {
-  id: string;
   username: string;
   email: string;
 }
 
 interface UserContextType {
   user: User | null;
-  login: (userData: User) => void;
-  logout: () => void;
-}
-
-interface UserProviderProps {
-  children: ReactNode;
+  setUser: (user: User) => void;
+  clearUser: () => void;
 }
 
 const UserContext = createContext<UserContextType | null>(null);
 
-export const UserProvider = ({ children }: UserProviderProps) => {
-  const [user, setUser] = useState<User | null>(null);
+export const UserProvider = ({ children }: { children: ReactNode }) => {
+  const [user, setUserState] = useState<User | null>(null);
 
-  const login = (userData: User) => {
-    setUser(userData);
+  const setUser = (user: User) => {
+    setUserState(user);
+    localStorage.setItem('user', JSON.stringify(user));
   };
 
-  const logout = () => {
-    setUser(null);
+  const clearUser = () => {
+    setUserState(null);
+    localStorage.removeItem('user');
   };
 
-  return <UserContext.Provider value={{ user, login, logout }}>{children}</UserContext.Provider>;
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUserState(JSON.parse(storedUser));
+    }
+  }, []);
+
+  return (
+    <UserContext.Provider value={{ user, setUser, clearUser }}>{children}</UserContext.Provider>
+  );
 };
 
 export const useUser = (): UserContextType => {

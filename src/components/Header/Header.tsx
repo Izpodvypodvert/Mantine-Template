@@ -8,6 +8,7 @@ import {
   useComputedColorScheme,
   useMantineColorScheme,
 } from '@mantine/core';
+import { useUser } from '@/contexts/User.context';
 import ProfileMenu from '../ProfileMenu/ProfileMenu';
 
 const Header = ({ opened, toggle }: { opened: boolean; toggle: () => void }) => {
@@ -16,6 +17,7 @@ const Header = ({ opened, toggle }: { opened: boolean; toggle: () => void }) => 
   const toggleColorScheme = () => {
     setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light');
   };
+  const { user } = useUser();
 
   return (
     <AppShell.Header>
