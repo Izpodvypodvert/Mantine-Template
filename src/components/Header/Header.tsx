@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaMoon, FaSun } from 'react-icons/fa';
+import { FaMoon, FaSun, FaUser } from 'react-icons/fa';
 import {
   AppShell,
   Burger,
@@ -8,6 +8,7 @@ import {
   useComputedColorScheme,
   useMantineColorScheme,
 } from '@mantine/core';
+import ProfileMenu from '../ProfileMenu/ProfileMenu';
 
 const Header = ({ opened, toggle }: { opened: boolean; toggle: () => void }) => {
   const { setColorScheme } = useMantineColorScheme();
@@ -18,12 +19,15 @@ const Header = ({ opened, toggle }: { opened: boolean; toggle: () => void }) => 
 
   return (
     <AppShell.Header>
-      <Flex justify="space-between" align="center" style={{ padding: '10px 20px' }}>
+      <Flex justify="space-between" align="center" style={{ padding: '5px 10px' }}>
         <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
         <div>Logo</div>
-        <Button size="sm" variant="link" onClick={toggleColorScheme}>
-          {computedColorScheme === 'light' ? <FaMoon /> : <FaSun />}
-        </Button>
+        <Flex justify="space-between" style={{ padding: '5px 10px', gap: '10px' }}>
+          <ProfileMenu />
+          <Button size="sm" variant="link" onClick={toggleColorScheme}>
+            {computedColorScheme === 'light' ? <FaMoon /> : <FaSun />}
+          </Button>
+        </Flex>
       </Flex>
     </AppShell.Header>
   );
