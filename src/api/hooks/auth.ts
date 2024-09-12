@@ -24,6 +24,11 @@ export const useLogin = () => {
     onSuccess: (data) => {
       setToken(data.access_token);
       console.log(data.access_token);
+      notifications.show({
+        title: 'Успех',
+        message: 'Вы успешно вошли в систему!',
+        color: 'teal',
+      });
       navigate('/');
     },
     onError: (error) => {
@@ -65,6 +70,7 @@ export const useRegister = () => {
 };
 
 export const useLogout = () => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -79,6 +85,7 @@ export const useLogout = () => {
         message: 'Вы успешно вышли из системы!',
         color: 'teal',
       });
+      navigate('/');
     },
     onError: (error) => {
       notifications.show({

@@ -1,13 +1,15 @@
 import React from 'react';
 import { FaMoon, FaUser } from 'react-icons/fa';
 import { Button, Menu, rem, Space, useMantineTheme } from '@mantine/core';
+import { useLogout } from '@/api/hooks/auth';
 
 const ProfileMenu = () => {
   const [userMenuOpened, setUserMenuOpened] = React.useState(false);
   const theme = useMantineTheme();
+  const logoutMutation = useLogout();
 
   const Logout = () => {
-    alert('Logout');
+    logoutMutation.mutate();
   };
 
   return (
