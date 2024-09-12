@@ -1,9 +1,9 @@
 import '@mantine/core/styles.css';
+import '@mantine/notifications/styles.css';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter } from 'react-router-dom';
 import { MantineProvider } from '@mantine/core';
-import ApplicationShell from './components/ApplicationShell/ApplicationShell';
+import { Notifications } from '@mantine/notifications';
 import { AuthProvider } from './contexts/Auth.context';
 import { UserProvider } from './contexts/User.context';
 import Router from './Router';
@@ -14,6 +14,7 @@ const queryClient = new QueryClient();
 const App = () => {
   return (
     <MantineProvider theme={theme}>
+      <Notifications />
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <UserProvider>
