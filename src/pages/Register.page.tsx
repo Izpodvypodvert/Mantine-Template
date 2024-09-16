@@ -8,8 +8,6 @@ const RegisterPage = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (values: { email: string; password: string; username?: string }) => {
-    console.log('Register:', values.email, values.username, values.password);
-
     register(
       { email: values.email, password: values.password, username: values.username ?? '' },
       {

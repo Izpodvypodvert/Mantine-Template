@@ -18,7 +18,6 @@ const Header = ({ opened, toggle }: { opened: boolean; toggle: () => void }) => 
     setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light');
   };
   const { user } = useAuth();
-  console.log('Header: ', user);
 
   return (
     <AppShell.Header>

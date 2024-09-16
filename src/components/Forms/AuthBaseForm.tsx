@@ -12,6 +12,7 @@ import {
   TextInput,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { validateEmail, validatePassword } from '@/utils/validators';
 import { GoogleButton } from './GoogleButton';
 
 interface AuthBaseFormProps {
@@ -27,10 +28,13 @@ const AuthBaseForm = ({ type, onSubmit, showUsername }: AuthBaseFormProps) => {
       password: '',
       username: '',
     },
-    validate: {
-      email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
-      password: (val) => (val.length <= 6 ? 'Password should include at least 6 characters' : null),
-    },
+    validate:
+      type === 'register'
+        ? {
+            email: validateEmail,
+            password: validatePassword,
+          }
+        : {},
   });
   const navigate = useNavigate();
 
@@ -68,7 +72,7 @@ const AuthBaseForm = ({ type, onSubmit, showUsername }: AuthBaseFormProps) => {
             placeholder="hello@mantine.dev"
             value={form.values.email}
             onChange={(event) => form.setFieldValue('email', event.currentTarget.value)}
-            error={form.errors.email && 'Invalid email'}
+            error={form.errors.email}
             radius="md"
           />
 
@@ -78,7 +82,7 @@ const AuthBaseForm = ({ type, onSubmit, showUsername }: AuthBaseFormProps) => {
             placeholder="Your password"
             value={form.values.password}
             onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
-            error={form.errors.password && 'Password should include at least 6 characters'}
+            error={form.errors.password}
             radius="md"
           />
         </Stack>

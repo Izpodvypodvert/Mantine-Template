@@ -81,6 +81,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     onError: (error: Error) => {
       console.log('Mutation failed:', error);
     },
+    retry: false,
   });
 
   const {
@@ -96,6 +97,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.log('Registration successful:', data);
       login({ email: variables.email, password: variables.password });
     },
+    retry: false,
   });
 
   const {

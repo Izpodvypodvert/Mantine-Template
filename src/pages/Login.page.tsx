@@ -8,8 +8,6 @@ const LoginPage = () => {
   const { login } = useAuth();
 
   const handleSubmit = (values: { email: string; password: string }) => {
-    console.log('Login:', values.email, values.password);
-
     login(
       { email: values.email, password: values.password },
       {
