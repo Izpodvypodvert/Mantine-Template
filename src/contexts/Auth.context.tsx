@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { MutateOptions, useMutation } from '@tanstack/react-query';
-import { useUserData } from '@/api/hooks/users';
-import { LoginData, RegisterData, RegisterResponse } from '@/api/types/auth';
+import { LoginData, RegisterData, RegisterResponse } from '@/api/auth/auth.types';
+import { useUserData } from '@/api/users/users.hooks';
 import { clearToken, setToken } from '@/utils/token';
-import { authService } from '../api/hooks/auth2';
-import { User } from '../api/types/users';
+import { authService } from '../api/auth/auth';
+import { User } from '../api/users/users.types';
 
 interface AuthContextProps {
   user: User | null;

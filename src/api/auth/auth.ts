@@ -1,5 +1,5 @@
 import { apiClient } from '../apiClient';
-import { LoginData, RegisterData, RegisterResponse } from '../types/auth';
+import { LoginData, RegisterData, RegisterResponse } from './auth.types';
 
 const login = async (data: LoginData): Promise<string> => {
   const params = new URLSearchParams();
