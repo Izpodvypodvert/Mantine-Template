@@ -1,13 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
-import { notifications } from '@mantine/notifications';
-import { clearToken, setToken } from '@/utils/token';
 import { apiClient } from '../apiClient';
 import { LoginData, RegisterData, RegisterResponse } from '../types/auth';
 
 export const useLogin = () => {
-  const navigate = useNavigate();
-
   return useMutation({
     mutationFn: async (data: LoginData) => {
       const params = new URLSearchParams();
@@ -21,22 +16,7 @@ export const useLogin = () => {
       });
       return response.data;
     },
-    onSuccess: (data) => {
-      setToken(data.access_token);
-      console.log(data.access_token);
-      notifications.show({
-        title: 'Успех',
-        message: 'Вы успешно вошли в систему!',
-        color: 'teal',
-      });
-      navigate('/');
-    },
     onError: (error) => {
-      notifications.show({
-        title: 'Ошибка',
-        message: 'Неверное имя пользователя или пароль. Пожалуйста, попробуйте еще раз.',
-        color: 'red',
-      });
       console.error('Ошибка входа:', error);
     },
   });
@@ -51,26 +31,15 @@ export const useRegister = () => {
       return response.data;
     },
     onSuccess: (data, variables) => {
-      notifications.show({
-        title: 'Успех',
-        message: 'Регистрация прошла успешно!',
-        color: 'teal',
-      });
       loginMutation.mutate({ email: variables.email, password: variables.password });
     },
     onError: (error) => {
-      notifications.show({
-        title: 'Ошибка',
-        message: 'Ошибка регистрации. Пожалуйста, попробуйте еще раз.',
-        color: 'red',
-      });
       console.error('Ошибка регистрации:', error);
     },
   });
 };
 
 export const useLogout = () => {
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -79,20 +48,8 @@ export const useLogout = () => {
     },
     onSuccess: () => {
       queryClient.clear();
-      clearToken();
-      notifications.show({
-        title: 'Успех',
-        message: 'Вы успешно вышли из системы!',
-        color: 'teal',
-      });
-      navigate('/');
     },
     onError: (error) => {
-      notifications.show({
-        title: 'Ошибка',
-        message: 'Ошибка выхода. Пожалуйста, попробуйте еще раз.',
-        color: 'red',
-      });
       console.error('Ошибка выхода:', error);
     },
   });

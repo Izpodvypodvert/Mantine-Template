@@ -8,7 +8,7 @@ import {
   useComputedColorScheme,
   useMantineColorScheme,
 } from '@mantine/core';
-import { useUser } from '@/contexts/User.context';
+import { useAuth } from '@/contexts/Auth.context';
 import ProfileMenu from '../ProfileMenu/ProfileMenu';
 
 const Header = ({ opened, toggle }: { opened: boolean; toggle: () => void }) => {
@@ -17,7 +17,8 @@ const Header = ({ opened, toggle }: { opened: boolean; toggle: () => void }) => 
   const toggleColorScheme = () => {
     setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light');
   };
-  const { user } = useUser();
+  const { user } = useAuth();
+  console.log('Header: ', user);
 
   return (
     <AppShell.Header>
@@ -25,7 +26,13 @@ const Header = ({ opened, toggle }: { opened: boolean; toggle: () => void }) => 
         <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
         <div>Logo</div>
         <Flex justify="space-between" style={{ padding: '5px 10px', gap: '10px' }}>
-          <ProfileMenu />
+          {user ? (
+            <ProfileMenu />
+          ) : (
+            <Button component="a" href="/login">
+              Войти
+            </Button>
+          )}
           <Button size="sm" variant="link" onClick={toggleColorScheme}>
             {computedColorScheme === 'light' ? <FaMoon /> : <FaSun />}
           </Button>

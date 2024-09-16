@@ -1,27 +1,32 @@
-import { useRegister } from '@/api/hooks/auth';
+import { useNavigate } from 'react-router-dom';
+import { notifications } from '@mantine/notifications';
+import { useAuth } from '@/contexts/Auth.context';
 import AuthBaseForm from '../components/Forms/AuthBaseForm';
 
 const RegisterPage = () => {
-  const registerMutation = useRegister();
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = (values: { email: string; password: string; username?: string }) => {
     console.log('Register:', values.email, values.username, values.password);
 
-    registerMutation.mutate(
+    register(
+      { email: values.email, password: values.password, username: values.username ?? '' },
       {
-        email: values.email,
-        password: values.password,
-        username: values.username ?? '',
-      },
-      {
-        onSuccess: (userData) => {
-          console.log(userData);
-          // TODO: Redirect to home page or login page
-          // TODO: Add user data to local storage or user context
+        onSuccess: (data) => {
+          notifications.show({
+            title: 'Успех',
+            message: 'Регистрация прошла успешно!',
+            color: 'teal',
+          });
+          navigate('/');
         },
-
-        onError: (error) => {
-          console.log('Register error', error);
+        onError: (error: Error) => {
+          notifications.show({
+            title: 'Ошибка',
+            message: 'Ошибка регистрации. Пожалуйста, попробуйте еще раз.',
+            color: 'red',
+          });
         },
       }
     );

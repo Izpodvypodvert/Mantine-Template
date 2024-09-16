@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle';
 import { Welcome } from '../components/Welcome/Welcome';
 import wait, { POSTS } from '../utils/wait';
 
@@ -32,10 +31,6 @@ const HomePage = () => {
       >
         Add new post
       </button>
-      {/* <ColorSchemeToggle />
-      <Welcome />
-      <Welcome />
-      <Welcome /> */}
     </>
   );
 };

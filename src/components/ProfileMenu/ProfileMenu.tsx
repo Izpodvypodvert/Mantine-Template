@@ -1,15 +1,36 @@
 import React from 'react';
 import { FaMoon, FaUser } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import { Button, Menu, rem, Space, useMantineTheme } from '@mantine/core';
-import { useLogout } from '@/api/hooks/auth';
+import { notifications } from '@mantine/notifications';
+import { useAuth } from '@/contexts/Auth.context';
 
 const ProfileMenu = () => {
   const [userMenuOpened, setUserMenuOpened] = React.useState(false);
   const theme = useMantineTheme();
-  const logoutMutation = useLogout();
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
-  const Logout = () => {
-    logoutMutation.mutate();
+  const handleLogout = async () => {
+    logout(undefined, {
+      onSuccess: () => {
+        setUserMenuOpened(false);
+        notifications.show({
+          title: 'Успех',
+          message: 'Вы успешно вышли из системы!',
+          color: 'teal',
+        });
+        navigate('/login');
+      },
+      onError: (error: Error) => {
+        setUserMenuOpened(false);
+        notifications.show({
+          title: 'Ошибка',
+          message: 'Ошибка при попытке выхода. Пожалуйста, попробуйте еще раз.',
+          color: 'red',
+        });
+      },
+    });
   };
 
   return (
@@ -59,7 +80,7 @@ const ProfileMenu = () => {
         <Menu.Divider />
         <Menu.Item
           component="button"
-          onClick={Logout}
+          onClick={handleLogout}
           color="red"
           leftSection={<FaMoon style={{ width: rem(14), height: rem(14) }} />}
         >

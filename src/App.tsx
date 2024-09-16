@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import { AuthProvider } from './contexts/Auth.context';
-import { UserProvider } from './contexts/User.context';
 import Router from './Router';
 import { theme } from './theme';
 
@@ -17,9 +16,7 @@ const App = () => {
       <Notifications />
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <UserProvider>
-            <Router />
-          </UserProvider>
+          <Router />
         </AuthProvider>
       </QueryClientProvider>
     </MantineProvider>
