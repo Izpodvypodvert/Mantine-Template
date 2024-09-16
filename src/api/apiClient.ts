@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getToken } from '@/utils/token';
+import { getTokenCookie } from '@/utils/cookies';
 
 export const apiClient = axios.create({
   baseURL: 'http://127.0.0.1:8000',
@@ -9,7 +9,7 @@ export const apiClient = axios.create({
 });
 
 apiClient.interceptors.request.use((config) => {
-  const token = getToken();
+  const token = getTokenCookie();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

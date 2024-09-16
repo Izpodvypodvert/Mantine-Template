@@ -2,7 +2,13 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { MutateOptions, useMutation } from '@tanstack/react-query';
 import { LoginData, RegisterData, RegisterResponse } from '@/api/auth/auth.types';
 import { useUserData } from '@/api/users/users.hooks';
-import { clearToken, setToken } from '@/utils/token';
+import {
+  clearTokenCookie,
+  clearUserCookie,
+  getUserCookie,
+  setTokenCookie,
+  setUserCookie,
+} from '@/utils/cookies';
 import { authService } from '../api/auth/auth';
 import { User } from '../api/users/users.types';
 
@@ -50,6 +56,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null);
   const { refetch: refetchUser } = useUserData();
 
+  useEffect(() => {
+    const storedUser = getUserCookie();
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   const {
     mutate: login,
     isPending: isLoadingLogin,
@@ -60,8 +73,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return await authService.login({ email, password });
     },
     onSuccess: async (data) => {
-      setToken(data);
-      setUser((await refetchUser()).data ?? null);
+      setTokenCookie(data);
+      const fetchedUser = (await refetchUser()).data ?? null;
+      setUser(fetchedUser);
+      setUserCookie(fetchedUser);
     },
     onError: (error: Error) => {
       console.log('Mutation failed:', error);
@@ -94,7 +109,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     },
     onSuccess: () => {
       setUser(null);
-      clearToken();
+      clearTokenCookie();
+      clearUserCookie();
     },
   });
 
