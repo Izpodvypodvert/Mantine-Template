@@ -10,10 +10,12 @@ import {
   Stack,
   Text,
   TextInput,
+  useMantineTheme,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { validateEmail, validatePassword } from '@/utils/validators';
-import { GoogleButton } from './GoogleButton';
+import { GoogleButton } from '../Buttons/GoogleButton';
+import classes from './AuthBaseForm.module.css';
 
 interface AuthBaseFormProps {
   type: 'login' | 'register';
@@ -37,9 +39,10 @@ const AuthBaseForm = ({ type, onSubmit, showUsername }: AuthBaseFormProps) => {
         : {},
   });
   const navigate = useNavigate();
+  const theme = useMantineTheme();
 
   return (
-    <Paper radius="md" p="xl" withBorder>
+    <Paper className={classes.paper}>
       <Text size="lg" fw={500}>
         Welcome to Mantine, {type} with
       </Text>

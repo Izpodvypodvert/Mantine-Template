@@ -10,6 +10,7 @@ import {
 } from '@mantine/core';
 import { useAuth } from '@/contexts/Auth.context';
 import ProfileMenu from '../ProfileMenu/ProfileMenu';
+import classes from './Header.module.css';
 
 const Header = ({ opened, toggle }: { opened: boolean; toggle: () => void }) => {
   const { setColorScheme } = useMantineColorScheme();
@@ -20,7 +21,7 @@ const Header = ({ opened, toggle }: { opened: boolean; toggle: () => void }) => 
   const { user } = useAuth();
 
   return (
-    <AppShell.Header>
+    <AppShell.Header className={classes.header}>
       <Flex justify="space-between" align="center" style={{ padding: '5px 10px' }}>
         <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
         <div>Logo</div>

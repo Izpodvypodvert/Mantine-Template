@@ -94,7 +94,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return await authService.register({ username, email, password });
     },
     onSuccess: (data, variables) => {
-      console.log('Registration successful:', data);
       login({ email: variables.email, password: variables.password });
     },
     retry: false,

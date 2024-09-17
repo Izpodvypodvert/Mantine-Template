@@ -3,8 +3,8 @@
   padding: var(--mantine-spacing-md);
   display: flex;
   flex-direction: column;
-  border-right: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
-  border-color: light-dark(var(--mantine-color-gray-5), var(--mantine-color-dark-4));
+  border-right: 1px solid light-dark(var(--mantine-color-gray-5), var(--mantine-color-dark-3));
+  background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-main-bg-dark-9));
 }
 
 .navbarMain {
