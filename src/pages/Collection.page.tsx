@@ -1,11 +1,7 @@
 import Cards from '@/components/Cards/Cards';
 
 const CollectionPage = () => {
-  return (
-    <div>
-      <Cards />
-    </div>
-  );
+  return <Cards />;
 };
 
 export default CollectionPage;
