@@ -1,5 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ApplicationShell from './components/ApplicationShell/ApplicationShell';
+import AboutPage from './pages/About.page';
+import CollectionPage from './pages/Collection.page';
 import HomePage from './pages/Home.page';
 import LoginPage from './pages/Login.page';
 import NotFoundPage from './pages/NotFound.page';
@@ -40,6 +42,14 @@ const router = createBrowserRouter([
       {
         path: '/settings',
         element: <SettingsPage />,
+      },
+      {
+        path: '/about',
+        element: <AboutPage />,
+      },
+      {
+        path: '/collection',
+        element: <CollectionPage />,
       },
     ],
   },

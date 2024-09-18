@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { CiLogout } from 'react-icons/ci';
+import { BsInfoSquare } from 'react-icons/bs';
 import { FaHome } from 'react-icons/fa';
 import { GiArchiveRegister } from 'react-icons/gi';
-import { HiOutlineSwitchHorizontal } from 'react-icons/hi';
 import { IoLogIn } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import { AppShell, Code, Group } from '@mantine/core';
@@ -10,8 +9,7 @@ import classes from './Navbar.module.css';
 
 const data = [
   { link: '/', label: 'Main Page', icon: FaHome },
-  { link: '/login', label: 'Login', icon: IoLogIn },
-  { link: '/register', label: 'Register', icon: GiArchiveRegister },
+  { link: '/collection', label: 'Collection', icon: GiArchiveRegister },
 ];
 
 const Navbar = ({ toggle }: { toggle: () => void }) => {
@@ -46,14 +44,20 @@ const Navbar = ({ toggle }: { toggle: () => void }) => {
       </div>
 
       <div className={classes.footer}>
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
-          <HiOutlineSwitchHorizontal className={classes.linkIcon} />
-          <span>Change account</span>
-        </a>
-
-        <a href="#" className={classes.link} onClick={(event) => event.preventDefault()}>
-          <CiLogout className={classes.linkIcon} />
-          <span>Logout</span>
+        <a
+          href="/about"
+          className={classes.link}
+          key={'About'}
+          data-active={'About' === active || undefined}
+          onClick={(event) => {
+            setActive('About');
+            toggle();
+            navigate('/about');
+            event.preventDefault();
+          }}
+        >
+          <BsInfoSquare className={classes.linkIcon} />
+          <span>About</span>
         </a>
       </div>
     </AppShell.Navbar>
