@@ -5,6 +5,8 @@ import {
   Burger,
   Button,
   Flex,
+  Image,
+  ThemeIcon,
   useComputedColorScheme,
   useMantineColorScheme,
 } from '@mantine/core';
@@ -14,7 +16,7 @@ import classes from './Header.module.css';
 
 const Header = ({ opened, toggle }: { opened: boolean; toggle: () => void }) => {
   const { setColorScheme } = useMantineColorScheme();
-  const computedColorScheme = useComputedColorScheme('light');
+  const computedColorScheme = useComputedColorScheme('dark');
   const toggleColorScheme = () => {
     setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light');
   };
@@ -24,7 +26,9 @@ const Header = ({ opened, toggle }: { opened: boolean; toggle: () => void }) => 
     <AppShell.Header className={classes.header}>
       <Flex justify="space-between" align="center" style={{ padding: '5px 10px' }}>
         <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-        <div>Logo</div>
+        <ThemeIcon size={45} color="transparent">
+          <img src="./src/favicon.png" alt="Logo" width={45} height={45} />
+        </ThemeIcon>
         <Flex justify="space-between" style={{ padding: '5px 10px', gap: '10px' }}>
           {user ? (
             <ProfileMenu />

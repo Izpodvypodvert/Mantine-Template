@@ -1,5 +1,5 @@
 .navbar {
-  width: 20rem;
+  width: 15rem;
   padding: var(--mantine-spacing-md);
   display: flex;
   flex-direction: column;
@@ -30,13 +30,14 @@
   align-items: center;
   text-decoration: none;
   font-size: var(--mantine-font-size-sm);
-  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-1));
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-bright));
   padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm);
   border-radius: var(--mantine-radius-sm);
   font-weight: 500;
+  margin-bottom: var(--mantine-spacing-sm);
 
   @mixin hover {
-    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-main-bg-dark-5));
     color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
 
     .linkIcon {
@@ -47,18 +48,21 @@
   &[data-active] {
     &,
     &:hover {
-      background-color: var(--mantine-color-blue-light);
-      color: var(--mantine-color-blue-light-color);
+      background-color: light-dark(
+        var(--mantine-color-gray-0),
+        var(--mantine-color-main-bg-dark-5)
+      );
+      color: light-dark(var(--mantine-color-bright), var(--mantine-color-bright));
 
       .linkIcon {
-        color: var(--mantine-color-blue-light-color);
+        color: light-dark(var(--mantine-color-bright), var(--mantine-color-bright));
       }
     }
   }
 }
 
 .linkIcon {
-  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-2));
   margin-right: var(--mantine-spacing-sm);
   width: 25px;
   height: 25px;

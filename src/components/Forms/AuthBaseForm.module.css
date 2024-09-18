@@ -1,8 +1,9 @@
 .paper {
   border-radius: var(--mantine-radius-md);
   padding: var(--mantine-spacing-xl);
-  border: 2px solid light-dark(var(--mantine-color-main-bg-dark-9), var(--mantine-color-dark-0));
-  background-color: light-dark(var(--mantine-color-main-bg-dark-0), var(--mantine-color-dark-3));
+  border: 2px solid
+    light-dark(var(--mantine-color-main-bg-dark-9), var(--mantine-color-main-bg-dark-0));
+  background-color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-main-bg-dark-9));
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
