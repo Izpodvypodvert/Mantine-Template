@@ -1,26 +1,14 @@
 import React from 'react';
-import { FaMoon, FaSun, FaUser } from 'react-icons/fa';
-import {
-  AppShell,
-  Burger,
-  Button,
-  Flex,
-  Image,
-  ThemeIcon,
-  useComputedColorScheme,
-  useMantineColorScheme,
-} from '@mantine/core';
+import { FaMoon, FaSun } from 'react-icons/fa';
+import { AppShell, Burger, Button, Flex, ThemeIcon } from '@mantine/core';
 import { useAuth } from '@/contexts/Auth.context';
+import { useToggleColorScheme } from '@/hooks/useToggleColorScheme';
 import ProfileMenu from '../ProfileMenu/ProfileMenu';
 import classes from './Header.module.css';
 
 const Header = ({ opened, toggle }: { opened: boolean; toggle: () => void }) => {
-  const { setColorScheme } = useMantineColorScheme();
-  const computedColorScheme = useComputedColorScheme('dark');
-  const toggleColorScheme = () => {
-    setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light');
-  };
   const { user } = useAuth();
+  const { computedColorScheme, toggleColorScheme } = useToggleColorScheme();
 
   return (
     <AppShell.Header className={classes.header}>
