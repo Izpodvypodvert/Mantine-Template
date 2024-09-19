@@ -1,12 +1,10 @@
-import { Card, Group, Image, SimpleGrid, Text } from '@mantine/core';
+import { SimpleGrid } from '@mantine/core';
 import { mockData } from '@/utils/mock';
 import MyCard from './Card';
-import classes from './Card.module.css';
 
 const Cards = () => {
   return (
     <SimpleGrid
-      className={classes.simpleGrid}
       cols={{ base: 1, sm: 2, lg: 3 }}
       spacing={{ base: 'md', sm: 'xl' }}
       verticalSpacing={{ base: 'md', sm: 'xl' }}
