@@ -16,9 +16,9 @@ const Header = ({ opened, toggle }: { opened: boolean; toggle: () => void }) => 
       <Flex justify="space-between" align="center" style={{ padding: '5px 10px' }}>
         <Flex justify="space-between" align="center" style={{ padding: '5px 10px', gap: '10px' }}>
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-          <ThemeIcon size={45} color="transparent">
+          <ActionIcon size={45} variant="transparent" component="a" href="/">
             <img src="./src/favicon.png" alt="Logo" width={45} height={45} />
-          </ThemeIcon>
+          </ActionIcon>
         </Flex>
         <Flex justify="space-between" style={{ padding: '5px 10px', gap: '10px' }}>
           {user ? (
