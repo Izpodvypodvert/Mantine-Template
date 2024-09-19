@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaMoon, FaUser } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { Button, Menu, rem, Space, useMantineTheme } from '@mantine/core';
+import { ActionIcon, Button, Menu, rem, Space, useMantineTheme } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useAuth } from '@/contexts/Auth.context';
 
@@ -44,9 +44,9 @@ const ProfileMenu = () => {
       offset={20}
     >
       <Menu.Target>
-        <Button size="sm">
-          <FaUser />
-        </Button>
+        <ActionIcon variant="transparent" size={'lg'}>
+          <FaUser size={25} />
+        </ActionIcon>
       </Menu.Target>
       <Menu.Dropdown>
         <Menu.Item
