@@ -3,7 +3,7 @@ import { AppShell } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import Header from '../Header/Header';
 import Navbar from '../Navbar/Navbar';
-import styles from './ApplicationShell.module.css';
+import classes from './ApplicationShell.module.css';
 
 const ApplicationShell = () => {
   const [opened, { toggle }] = useDisclosure();
@@ -21,10 +21,10 @@ const ApplicationShell = () => {
       <Header opened={opened} toggle={toggle} />
       <Navbar toggle={toggle} />
 
-      <AppShell.Main className={styles.main_content}>
+      <AppShell.Main className={classes.main_content}>
         <Outlet />
       </AppShell.Main>
-      <AppShell.Footer className={styles.footer}>Footer 😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️</AppShell.Footer>
+      <AppShell.Footer className={classes.footer}>Footer 😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️</AppShell.Footer>
     </AppShell>
   );
 };

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { BsInfoSquare } from 'react-icons/bs';
 import { FaHome } from 'react-icons/fa';
 import { GiArchiveRegister } from 'react-icons/gi';
-import { IoLogIn } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import { AppShell, Code, Group } from '@mantine/core';
 import classes from './Navbar.module.css';

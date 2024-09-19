@@ -1,5 +1,5 @@
 import { Card, Group, Image, Text, Title } from '@mantine/core';
-import styles from './Card.module.css';
+import classes from './Card.module.css';
 
 interface MyCardProps {
   thumbnail: string;
@@ -9,7 +9,7 @@ interface MyCardProps {
 
 const MyCard: React.FC<MyCardProps> = ({ thumbnail, title, description }) => {
   return (
-    <Card shadow="sm" padding="lg" className={styles.card}>
+    <Card shadow="sm" padding="lg" className={classes.card}>
       <Card.Section>
         <Image src={thumbnail} height={200} alt={title} />
       </Card.Section>
