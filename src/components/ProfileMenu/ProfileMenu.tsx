@@ -1,5 +1,9 @@
 import React from 'react';
-import { FaMoon, FaUser } from 'react-icons/fa';
+import { FaUser } from 'react-icons/fa';
+import { GiProgression } from 'react-icons/gi';
+import { ImProfile } from 'react-icons/im';
+import { IoMdSettings } from 'react-icons/io';
+import { TbLogout } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
 import { ActionIcon, Button, Menu, rem, Space, useMantineTheme } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
@@ -53,7 +57,10 @@ const ProfileMenu = () => {
           component="a"
           href="/progress"
           leftSection={
-            <FaMoon style={{ width: rem(16), height: rem(16) }} color={theme.colors.blue[6]} />
+            <GiProgression
+              style={{ width: rem(16), height: rem(16) }}
+              color={theme.colors.blue[6]}
+            />
           }
         >
           Progress
@@ -62,7 +69,7 @@ const ProfileMenu = () => {
           component="a"
           href="/profile"
           leftSection={
-            <FaMoon style={{ width: rem(16), height: rem(16) }} color={theme.colors.yellow[6]} />
+            <ImProfile style={{ width: rem(16), height: rem(16) }} color={theme.colors.yellow[6]} />
           }
         >
           Profile
@@ -71,7 +78,10 @@ const ProfileMenu = () => {
           component="a"
           href="/settings"
           leftSection={
-            <FaMoon style={{ width: rem(16), height: rem(16) }} color={theme.colors.green[6]} />
+            <IoMdSettings
+              style={{ width: rem(16), height: rem(16) }}
+              color={theme.colors.green[6]}
+            />
           }
         >
           Settings
@@ -82,7 +92,7 @@ const ProfileMenu = () => {
           component="button"
           onClick={handleLogout}
           color="red"
-          leftSection={<FaMoon style={{ width: rem(14), height: rem(14) }} />}
+          leftSection={<TbLogout style={{ width: rem(14), height: rem(14) }} />}
         >
           Logout
         </Menu.Item>
