@@ -43,7 +43,7 @@ const AuthBaseForm = ({ type, onSubmit, showUsername }: AuthBaseFormProps) => {
   const theme = useMantineTheme();
 
   const handleGoogleLogin = () => {
-    window.location.href = `http://127.0.0.1:8000/auth/google/login`;
+    window.location.href = `${process.env.REACT_APP_BASE_URL}/auth/google/login`;
   };
 
   return (
