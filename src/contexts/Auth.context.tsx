@@ -19,6 +19,7 @@ interface AuthContextProps {
   isErrorLogin: boolean;
   loginError: Error | null;
   login: (variables: LoginData, options?: MutateOptions<string, Error, LoginData, unknown>) => void;
+  handleLoginSuccess: (data: any) => Promise<void>;
   isLoadingRegister: boolean;
   isErrorRegister: boolean;
   registerError: Error | null;
@@ -40,7 +41,7 @@ const AuthContext = createContext<AuthContextProps>({
   isErrorLogin: false,
   loginError: null,
   login: () => {},
-
+  handleLoginSuccess: async () => {},
   isLoadingRegister: false,
   isErrorRegister: false,
   registerError: null,
@@ -63,6 +64,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
+  const handleLoginSuccess = async (data: any) => {
+    setTokenCookie(data);
+    const fetchedUser = (await refetchUser()).data ?? null;
+    setUser(fetchedUser);
+    setUserCookie(fetchedUser);
+  };
+
   const {
     mutate: login,
     isPending: isLoadingLogin,
@@ -73,10 +81,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return await authService.login({ email, password });
     },
     onSuccess: async (data) => {
-      setTokenCookie(data);
-      const fetchedUser = (await refetchUser()).data ?? null;
-      setUser(fetchedUser);
-      setUserCookie(fetchedUser);
+      await handleLoginSuccess(data);
     },
     onError: (error: Error) => {
       console.log('Mutation failed:', error);
@@ -123,6 +128,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isErrorLogin,
         loginError,
         login,
+        handleLoginSuccess,
         isLoadingRegister,
         isErrorRegister,
         registerError,

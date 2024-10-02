@@ -42,6 +42,10 @@ const AuthBaseForm = ({ type, onSubmit, showUsername }: AuthBaseFormProps) => {
   const navigate = useNavigate();
   const theme = useMantineTheme();
 
+  const handleGoogleLogin = () => {
+    window.location.href = `http://127.0.0.1:8000/auth/google/login`;
+  };
+
   return (
     <Container className={classes.content}>
       <Paper className={classes.paper}>
@@ -50,7 +54,9 @@ const AuthBaseForm = ({ type, onSubmit, showUsername }: AuthBaseFormProps) => {
         </Text>
 
         <Group grow mb="md" mt="md">
-          <GoogleButton radius="xl">Google</GoogleButton>
+          <GoogleButton radius="xl" onClick={handleGoogleLogin}>
+            Google
+          </GoogleButton>
         </Group>
 
         <Divider label="Or continue with email" labelPosition="center" my="lg" />
