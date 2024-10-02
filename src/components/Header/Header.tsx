@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from '/src/favicon.png';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { IoEnterOutline } from 'react-icons/io5';
 import { ActionIcon, AppShell, Burger, Button, Flex, ThemeIcon } from '@mantine/core';
@@ -17,7 +18,7 @@ const Header = ({ opened, toggle }: { opened: boolean; toggle: () => void }) => 
         <Flex justify="space-between" align="center" style={{ padding: '5px 10px', gap: '10px' }}>
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           <ActionIcon size={45} variant="transparent" component="a" href="/">
-            <img src="./src/favicon.png" alt="Logo" width={45} height={45} />
+            <img src={logo} alt="Logo" width={45} height={45} />
           </ActionIcon>
         </Flex>
         <Flex justify="space-between" style={{ padding: '5px 10px', gap: '10px' }}>

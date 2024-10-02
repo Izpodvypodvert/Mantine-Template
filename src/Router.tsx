@@ -5,6 +5,7 @@ import CollectionPage from './pages/Collection.page';
 import HomePage from './pages/Home.page';
 import LoginPage from './pages/Login.page';
 import NotFoundPage from './pages/NotFound.page';
+import OAuthCallbackPage from './pages/OAuthCallbackPage';
 import ProfilePage from './pages/Profile.page';
 import ProgressPage from './pages/Progress.page';
 import RegisterPage from './pages/Register.page';
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: '/collection',
         element: <CollectionPage />,
+      },
+      {
+        path: '/oauth',
+        element: <OAuthCallbackPage />,
       },
     ],
   },
