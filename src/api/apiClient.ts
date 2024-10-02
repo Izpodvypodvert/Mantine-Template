@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getTokenCookie } from '@/utils/cookies';
 
 export const apiClient = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: import.meta.env.VITE_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
