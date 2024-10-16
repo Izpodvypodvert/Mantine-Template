@@ -1,6 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { MutateOptions, useMutation } from '@tanstack/react-query';
-import { LoginData, RegisterData, RegisterResponse } from '@/api/auth/auth.types';
+import {
+  LoginData,
+  RegisterData,
+  RegisterResponse,
+  resetPasswordData,
+} from '@/api/auth/auth.types';
 import { useUserData } from '@/api/users/users.hooks';
 import {
   clearTokenCookie,
@@ -32,26 +37,17 @@ interface AuthContextProps {
   isErrorLogout: boolean;
   logoutError: Error | null;
   logout: (variables: void, options?: MutateOptions<void, Error, void, unknown>) => void;
+  resetPassword: (
+    variables: resetPasswordData,
+    options?: MutateOptions<void, Error, resetPasswordData, unknown>
+  ) => void;
+  forgotPassword: (
+    variables: string,
+    options?: MutateOptions<void, Error, string, unknown>
+  ) => void;
 }
 
-const AuthContext = createContext<AuthContextProps>({
-  user: null,
-
-  isLoadingLogin: false,
-  isErrorLogin: false,
-  loginError: null,
-  login: () => {},
-  handleLoginSuccess: async () => {},
-  isLoadingRegister: false,
-  isErrorRegister: false,
-  registerError: null,
-  register: () => {},
-
-  isLoadingLogout: false,
-  isErrorLogout: false,
-  logoutError: null,
-  logout: () => {},
-});
+const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -120,6 +116,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     },
   });
 
+  const { mutate: forgotPassword } = useMutation({
+    mutationFn: async (email: string) => {
+      return await authService.forgotPassword({ email: email });
+    },
+    onSuccess: () => {
+      setUser(null);
+      clearTokenCookie();
+      clearUserCookie();
+      console.log('Password reset email sent');
+    },
+  });
+
+  const { mutate: resetPassword } = useMutation({
+    mutationFn: async ({ token, password }: resetPasswordData) => {
+      return await authService.resetPassword({ token, password });
+    },
+    onSuccess: () => {
+      console.log('Reset password successful');
+    },
+  });
+
   return (
     <AuthContext.Provider
       value={{
@@ -137,6 +154,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isErrorLogout,
         logoutError,
         logout,
+        forgotPassword,
+        resetPassword,
       }}
     >
       {children}
@@ -144,4 +163,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};
