@@ -12,3 +12,8 @@ export interface RegisterResponse {
   username: string;
   email: string;
 }
+
+export interface resetPasswordData {
+  token: string;
+  password: string;
+}

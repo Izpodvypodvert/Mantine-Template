@@ -1,5 +1,5 @@
 import { apiClient } from '../apiClient';
-import { LoginData, RegisterData, RegisterResponse } from './auth.types';
+import { LoginData, RegisterData, RegisterResponse, resetPasswordData } from './auth.types';
 
 const login = async (data: LoginData): Promise<string> => {
   const params = new URLSearchParams();
@@ -23,8 +23,18 @@ const logout = async () => {
   await apiClient.post('/auth/jwt/logout');
 };
 
+const forgotPassword = async (data: { email: string }) => {
+  await apiClient.post('/auth/forgot-password', data);
+};
+
+const resetPassword = async (data: resetPasswordData) => {
+  await apiClient.post('/auth/reset-password', data);
+};
+
 export const authService = {
   login,
   register,
   logout,
+  forgotPassword,
+  resetPassword,
 };

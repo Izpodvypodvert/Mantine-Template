@@ -11,12 +11,11 @@ import {
   Stack,
   Text,
   TextInput,
-  useMantineTheme,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { validateEmail, validatePassword } from '@/utils/validators';
 import { GoogleButton } from '../Buttons/GoogleButton';
-import classes from './AuthBaseForm.module.css';
+import classes from './BaseForm.module.css';
 
 interface AuthBaseFormProps {
   type: 'login' | 'register';
@@ -40,7 +39,6 @@ const AuthBaseForm = ({ type, onSubmit, showUsername }: AuthBaseFormProps) => {
         : {},
   });
   const navigate = useNavigate();
-  const theme = useMantineTheme();
 
   const handleGoogleLogin = () => {
     window.location.href = `${import.meta.env.VITE_BASE_URL}/auth/google/login`;
@@ -99,17 +97,28 @@ const AuthBaseForm = ({ type, onSubmit, showUsername }: AuthBaseFormProps) => {
           </Stack>
 
           <Group justify="space-between" mt="xl">
-            <Anchor
-              component="button"
-              type="button"
-              c="dimmed"
-              onClick={() => navigate(type === 'login' ? '/register' : '/login')}
-              size="xs"
-            >
-              {type === 'register'
-                ? 'Already have an account? Login'
-                : "Don't have an account? Register"}
-            </Anchor>
+            <Stack align="start">
+              <Anchor
+                component="button"
+                type="button"
+                c="dimmed"
+                onClick={() => navigate(type === 'login' ? '/register' : '/login')}
+                size="xs"
+              >
+                {type === 'register'
+                  ? 'Already have an account? Login'
+                  : "Don't have an account? Register"}
+              </Anchor>
+              <Anchor
+                component="button"
+                type="button"
+                c="dimmed"
+                onClick={() => navigate('/forgot-password')}
+                size="xs"
+              >
+                Forgot password?
+              </Anchor>
+            </Stack>
             <Button type="submit" radius="xl">
               {type === 'login' ? 'Login' : 'Register'}
             </Button>
