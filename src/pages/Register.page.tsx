@@ -17,7 +17,7 @@ const RegisterPage = () => {
             message: 'Регистрация прошла успешно!',
             color: 'teal',
           });
-          navigate('/');
+          navigate('/check-email-registration');
         },
         onError: (error: Error) => {
           notifications.show({

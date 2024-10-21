@@ -31,10 +31,15 @@ const resetPassword = async (data: resetPasswordData) => {
   await apiClient.post('/auth/reset-password', data);
 };
 
+const verifyEmail = async (token: string) => {
+  await apiClient.post('/auth/verify-email', { token });
+};
+
 export const authService = {
   login,
   register,
   logout,
   forgotPassword,
   resetPassword,
+  verifyEmail,
 };
