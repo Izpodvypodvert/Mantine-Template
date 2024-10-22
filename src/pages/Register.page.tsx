@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
 import { useAuth } from '@/contexts/Auth.context';
+import { getErrorMessage } from '@/utils/errors';
 import AuthBaseForm from '../components/Forms/AuthBaseForm';
 
 const RegisterPage = () => {
@@ -20,9 +21,10 @@ const RegisterPage = () => {
           navigate('/check-email-registration');
         },
         onError: (error: Error) => {
+          const errorMessage = getErrorMessage(error);
           notifications.show({
             title: 'Ошибка',
-            message: 'Ошибка регистрации. Пожалуйста, попробуйте еще раз.',
+            message: `${errorMessage}.`,
             color: 'red',
           });
         },
