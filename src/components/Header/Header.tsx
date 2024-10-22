@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '/src/favicon.png';
 import { FaMoon, FaSun } from 'react-icons/fa';
-import { IoEnterOutline } from 'react-icons/io5';
+import { IoEnterOutline, IoMailOutline } from 'react-icons/io5';
 import { ActionIcon, AppShell, Burger, Button, Flex, ThemeIcon } from '@mantine/core';
 import { useAuth } from '@/contexts/Auth.context';
 import { useToggleColorScheme } from '@/hooks/useToggleColorScheme';
@@ -11,6 +11,10 @@ import classes from './Header.module.css';
 const Header = ({ opened, toggle }: { opened: boolean; toggle: () => void }) => {
   const { user } = useAuth();
   const { computedColorScheme, toggleColorScheme } = useToggleColorScheme();
+
+  const handleResendVerification = () => {
+    console.log('handleResendVerification');
+  };
 
   return (
     <AppShell.Header className={classes.header}>
@@ -22,8 +26,17 @@ const Header = ({ opened, toggle }: { opened: boolean; toggle: () => void }) => 
           </ActionIcon>
         </Flex>
         <Flex justify="space-between" style={{ padding: '5px 10px', gap: '10px' }}>
-          {user ? (
+          {user && user.is_verified ? (
             <ProfileMenu />
+          ) : user ? (
+            <ActionIcon
+              onClick={handleResendVerification}
+              variant="transparent"
+              size={'lg'}
+              title="Отправить повторное верификационное письмо"
+            >
+              <IoMailOutline size={40} />
+            </ActionIcon>
           ) : (
             <ActionIcon component="a" href="/login" variant="transparent" size={'lg'}>
               <IoEnterOutline size={40} />

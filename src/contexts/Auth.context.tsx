@@ -92,8 +92,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     },
     onSuccess: async (data, token) => {
       await handleLoginSuccess(token);
-      console.log('token is', token);
-      console.log('data is', data);
     },
     onError: (error: Error) => {
       console.log('verifyEmail Mutation failed:', error);
@@ -111,7 +109,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return await authService.register({ username, email, password });
     },
     onSuccess: (data, variables) => {
-      // login({ email: variables.email, password: variables.password });
       console.log('Successful registration');
     },
     retry: false,
