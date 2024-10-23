@@ -46,6 +46,10 @@ interface AuthContextProps {
     options?: MutateOptions<void, Error, string, unknown>
   ) => void;
   verifyEmail: (variables: string, options?: MutateOptions<void, Error, string, unknown>) => void;
+  requestVerification: (
+    variables: void,
+    options?: MutateOptions<void, Error, void, unknown>
+  ) => void;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -82,6 +86,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     },
     onError: (error: Error) => {
       console.log('Mutation failed:', error);
+    },
+    retry: false,
+  });
+
+  const { mutate: requestVerification } = useMutation({
+    mutationFn: async () => {
+      return await authService.requestVerification();
+    },
+    onSuccess: async (data, token) => {
+      console.log('verifyEmail Mutation success:', data, token);
+    },
+    onError: (error: Error) => {
+      console.log('verifyEmail Mutation failed:', error);
     },
     retry: false,
   });
@@ -171,6 +188,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         forgotPassword,
         resetPassword,
         verifyEmail,
+        requestVerification,
       }}
     >
       {children}

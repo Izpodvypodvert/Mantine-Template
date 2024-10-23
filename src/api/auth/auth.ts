@@ -35,6 +35,10 @@ const verifyEmail = async (token: string) => {
   await apiClient.post('/auth/verify-email', { token });
 };
 
+const requestVerification = async () => {
+  await apiClient.post('/auth/request-verification');
+};
+
 export const authService = {
   login,
   register,
@@ -42,4 +46,5 @@ export const authService = {
   forgotPassword,
   resetPassword,
   verifyEmail,
+  requestVerification,
 };
