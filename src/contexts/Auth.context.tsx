@@ -65,11 +65,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
-  const handleLoginSuccess = async (data: any) => {
-    setTokenCookie(data);
+  const updateUser = async () => {
     const fetchedUser = (await refetchUser()).data ?? null;
     setUser(fetchedUser);
     setUserCookie(fetchedUser);
+  };
+
+  const handleLoginSuccess = async (token: string) => {
+    setTokenCookie(token);
+    await updateUser();
   };
 
   const {
@@ -81,8 +85,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     mutationFn: async ({ email, password }: LoginData) => {
       return await authService.login({ email, password });
     },
-    onSuccess: async (data) => {
-      await handleLoginSuccess(data);
+    onSuccess: async (token) => {
+      await handleLoginSuccess(token);
     },
     onError: (error: Error) => {
       console.log('Mutation failed:', error);
@@ -107,8 +111,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     mutationFn: async (token: string) => {
       return await authService.verifyEmail(token);
     },
-    onSuccess: async (data, token) => {
-      await handleLoginSuccess(token);
+    onSuccess: async () => {
+      await updateUser();
     },
     onError: (error: Error) => {
       console.log('verifyEmail Mutation failed:', error);
