@@ -11,8 +11,10 @@ import OAuthCallbackPage from './pages/OAuthCallback.page';
 import ProfilePage from './pages/Profile.page';
 import ProgressPage from './pages/Progress.page';
 import RegisterPage from './pages/Register.page';
+import RegistrationCheckEmailPage from './pages/RegistrationCheckEmail.page';
 import ResetPasswordPage from './pages/ResetPasswrod.page';
 import SettingsPage from './pages/Settings.page';
+import VerifyEmailPage from './pages/VerifyEmail.page';
 
 const router = createBrowserRouter([
   {
@@ -70,6 +72,14 @@ const router = createBrowserRouter([
       {
         path: '/check-email',
         element: <CheckEmailPage />,
+      },
+      {
+        path: '/check-email-registration',
+        element: <RegistrationCheckEmailPage />,
+      },
+      {
+        path: '/verify-email',
+        element: <VerifyEmailPage />,
       },
     ],
   },

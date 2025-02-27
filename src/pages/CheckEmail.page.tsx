@@ -1,16 +1,11 @@
-import { Container, Text, Title } from '@mantine/core';
+import CheckEmailMessage from '@/components/CheckEmailMessage/CheckEmailMessage';
 
 const CheckEmailPage = () => {
   return (
-    <Container>
-      <Title size="lg" mt={50} mb={10}>
-        Проверьте свою почту.
-      </Title>
-      <Text>
-        Мы отправили вам ссылку на сброс пароля. Перейдите по ссылке из письма для восстановления
-        доступа.
-      </Text>
-    </Container>
+    <CheckEmailMessage
+      title="Проверьте свою почту."
+      message="Мы отправили вам ссылку на сброс пароля. Перейдите по ссылке из письма для восстановления доступа."
+    />
   );
 };
 

@@ -45,6 +45,11 @@ interface AuthContextProps {
     variables: string,
     options?: MutateOptions<void, Error, string, unknown>
   ) => void;
+  verifyEmail: (variables: string, options?: MutateOptions<void, Error, string, unknown>) => void;
+  requestVerification: (
+    variables: void,
+    options?: MutateOptions<void, Error, void, unknown>
+  ) => void;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -60,11 +65,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
-  const handleLoginSuccess = async (data: any) => {
-    setTokenCookie(data);
+  const updateUser = async () => {
     const fetchedUser = (await refetchUser()).data ?? null;
     setUser(fetchedUser);
     setUserCookie(fetchedUser);
+  };
+
+  const handleLoginSuccess = async (token: string) => {
+    setTokenCookie(token);
+    await updateUser();
   };
 
   const {
@@ -76,11 +85,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     mutationFn: async ({ email, password }: LoginData) => {
       return await authService.login({ email, password });
     },
-    onSuccess: async (data) => {
-      await handleLoginSuccess(data);
+    onSuccess: async (token) => {
+      await handleLoginSuccess(token);
     },
     onError: (error: Error) => {
       console.log('Mutation failed:', error);
+    },
+    retry: false,
+  });
+
+  const { mutate: requestVerification } = useMutation({
+    mutationFn: async () => {
+      return await authService.requestVerification();
+    },
+    onSuccess: async (data, token) => {
+      console.log('verifyEmail Mutation success:', data, token);
+    },
+    onError: (error: Error) => {
+      console.log('verifyEmail Mutation failed:', error);
+    },
+    retry: false,
+  });
+
+  const { mutate: verifyEmail } = useMutation({
+    mutationFn: async (token: string) => {
+      return await authService.verifyEmail(token);
+    },
+    onSuccess: async () => {
+      await updateUser();
+    },
+    onError: (error: Error) => {
+      console.log('verifyEmail Mutation failed:', error);
     },
     retry: false,
   });
@@ -95,7 +130,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return await authService.register({ username, email, password });
     },
     onSuccess: (data, variables) => {
-      login({ email: variables.email, password: variables.password });
+      console.log('Successful registration');
     },
     retry: false,
   });
@@ -156,6 +191,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         logout,
         forgotPassword,
         resetPassword,
+        verifyEmail,
+        requestVerification,
       }}
     >
       {children}

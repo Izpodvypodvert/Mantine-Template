@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
 import AuthBaseForm from '@/components/Forms/AuthBaseForm';
 import { useAuth } from '@/contexts/Auth.context';
+import { getErrorMessage } from '@/utils/errors';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -20,9 +21,10 @@ const LoginPage = () => {
           navigate('/');
         },
         onError: (error: Error) => {
+          const errorMessage = getErrorMessage(error);
           notifications.show({
             title: 'Ошибка',
-            message: 'Неверное имя пользователя или пароль. Пожалуйста, попробуйте еще раз.',
+            message: `${errorMessage}.`,
             color: 'red',
           });
         },
